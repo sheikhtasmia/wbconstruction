@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavLink, useLocation } from "react-router-dom";
-import { CiMenuFries } from "react-icons/ci"; // মেনু আইকন
-import { FiPhoneCall } from "react-icons/fi"; // কল আইকন
+import { CiMenuFries } from "react-icons/ci";
+import { FiPhoneCall } from "react-icons/fi";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrollingDown, setScrollingDown] = useState(false);
-    // isScrolled: স্ক্রল করার পর Navbar এর স্টাইল পরিবর্তনের জন্য।
     const [isScrolled, setIsScrolled] = useState(false);
     const [lastScroll, setLastScroll] = useState(0);
     const location = useLocation();
@@ -17,17 +16,14 @@ const Navbar = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
 
-    // ডামি ফোন নম্বর
     const CALL_NUMBER = "+8801712345678";
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.scrollY;
 
-            // Navbar লুকানো/দেখানোর লজিক
             setScrollingDown(currentScroll > lastScroll && currentScroll > 80);
 
-            // bg-black/white পরিবর্তনের জন্য লজিক
             setIsScrolled(currentScroll > 50);
             setLastScroll(currentScroll);
         };
@@ -43,7 +39,6 @@ const Navbar = () => {
         { name: "Contact", path: "/contact" }
     ];
 
-    // Nav Items-এর এন্ট্রি অ্যানিমেশন (Desktop)
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -68,7 +63,6 @@ const Navbar = () => {
         }
     };
 
-    // Mobile Menu অ্যানিমেশন: Opacity সহ সাইডবার (ডান দিক থেকে স্লাইড)
     const mobileMenuVariants = {
         closed: {
             opacity: 0,
@@ -127,7 +121,6 @@ const Navbar = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        {/* লোগো সোর্স isScrolled এর উপর নির্ভর করে পরিবর্তন হবে */}
                         <img
                             src={logoSrc}
                             alt="Logo"
@@ -136,7 +129,6 @@ const Navbar = () => {
                     </motion.div>
                 </NavLink>
 
-                {/* 2. Desktop Menu: Nav Items Center এবং Call Button */}
                 <div className="hidden lg:flex flex-1 justify-center">
                     <motion.div
                         className="flex items-center space-x-1"
@@ -154,7 +146,6 @@ const Navbar = () => {
                                 >
                                     <NavLink
                                         to={item.path}
-                                        // ⚠️ ফিক্স করা হয়েছে: isActive ডিস্ট্রাকচার করে নেওয়া হয়েছে
                                         className={({ isActive }) =>
                                             `relative px-4 py-2 font-medium transition-all duration-300 group inline-flex items-center justify-center 
                                             ${isScrolled
@@ -168,15 +159,13 @@ const Navbar = () => {
                                         }
                                     >
                                         <span className="relative z-10">{item.name}</span>
-                                        {/* Underline Indicator (Hover Effect) */}
                                         <motion.div
                                             className={`absolute left-0 bottom-0 h-[2px] 
                                                 ${isScrolled ? "bg-blue-400" : "bg-blue-300"} 
                                                 w-0 transition-all duration-300 ease-out 
                                                 group-hover:w-full z-20`}
                                         />
-                                        {/* Active Dot Indicator */}
-                                        {location.pathname === item.path && ( // location.pathname ব্যবহার করা হয়েছে
+                                        {location.pathname === item.path && (
                                             <motion.div
                                                 className={`absolute bottom-[-5px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full 
                                                     ${isScrolled ? "bg-blue-400" : "bg-blue-300"}`}
@@ -191,7 +180,6 @@ const Navbar = () => {
                     </motion.div>
                 </div>
 
-                {/* Call Button (Last Item) & Mobile Menu Button */}
                 <div className="flex items-center space-x-4">
 
                     <div className="flex items-center space-x-4">
@@ -218,7 +206,6 @@ const Navbar = () => {
                             <span>CALL US</span>
                         </motion.a>
 
-                        {/* Mobile Menu Button, etc. (Other items will go here) */}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -233,7 +220,6 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* 3. Mobile Menu Overlay (Animated Sidebar) */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
@@ -250,7 +236,6 @@ const Navbar = () => {
                             exit="closed"
                             variants={mobileMenuVariants}
                         >
-                            {/* Close Button at the top right of the sidebar */}
                             <motion.button
                                 onClick={closeMenu}
                                 className="p-3 text-white hover:bg-white/10 rounded-xl self-end"
@@ -263,7 +248,6 @@ const Navbar = () => {
                                 </svg>
                             </motion.button>
 
-                            {/* Navigation Items */}
                             <motion.div
                                 className="flex flex-col space-y-4 w-full"
                                 initial="closed"
@@ -278,7 +262,6 @@ const Navbar = () => {
                                         <NavLink
                                             to={item.path}
                                             onClick={closeMenu}
-                                            // ⚠️ ফিক্স করা হয়েছে: isActive ডিস্ট্রাকচার করে নেওয়া হয়েছে
                                             className={({ isActive }) =>
                                                 `text-xl font-semibold py-2 block transition-colors border-l-4 pl-4 ${isActive
                                                     ? "text-blue-400 border-blue-400"
@@ -299,7 +282,6 @@ const Navbar = () => {
                                 ))}
                             </motion.div>
 
-                            {/* Mobile Call Button (Sidebar-এর নীচে) */}
                             <motion.a
                                 href={`tel:${CALL_NUMBER}`}
                                 onClick={closeMenu}

@@ -12,7 +12,7 @@ const Banner = () => {
             image:
                 "https://plus.unsplash.com/premium_photo-1681823643449-3c3d99541b0b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1171",
             title: "We Build Construction & Consultancy",
-            text: "A Bangladesh-based architecture & construction firm",
+            text: "A Bangladesh-based architecture & construction farm",
         },
         {
             image: "https://plus.unsplash.com/premium_photo-1663046024054-47d889bb1f1e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
